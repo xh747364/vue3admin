@@ -1,84 +1,78 @@
 <template>
   <transition-group>
-    <LoadingView :loading="postsLoad">
-      <el-table :data="postsData.data">
-        <el-table-column prop="title" label="标题" width="140">
-        </el-table-column>
-        <el-table-column prop="desc" label="描述" width="320">
-        </el-table-column>
-        <el-table-column prop="createDate" label="创建时间"> </el-table-column>
-        <el-table-column prop="updateDate" label="修改时间"> </el-table-column>
-        <el-table-column label="操作">
-          <template #default="scope">
-            <el-button
-              type="primary"
-              size="small"
-              icon="el-icon-edit-outline"
-              @click="handleEdit(scope.row._id)"
-              >编辑</el-button
-            >
-            <el-button
-              type="danger"
-              size="small"
-              icon="el-icon-delete"
-              @click="handleDelete(scope.row._id)"
-              >删除</el-button
-            >
-          </template>
-        </el-table-column>
-      </el-table>
-      <el-pagination
-        background
-        layout="prev, pager, next"
-        :total="postsData.countPage"
-      ></el-pagination>
+    <LoadingView :loading="CardLoad">
+      <el-card class="box-card">
+        <template #header>
+          <div class="card-header">
+            <span>数据预览</span>
+          </div>
+        </template>
+        <el-row>
+          文章数量: {{CardData.data.postsCount}}
+        </el-row>
+        <el-row>
+          分类数量: {{CardData.data.categoriesCount}}
+        </el-row>
+        <el-row>
+          标签数量: {{CardData.data.tagsCount}}
+        </el-row>
+        <el-row>
+          友链数量: {{CardData.data.friendLink.length}}
+        </el-row>
+      </el-card>
     </LoadingView>
   </transition-group>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
-import { Request } from "@/hooks/useRequest";
-import { PostsGet } from "@/interface/Request";
-import LoadingView from "@/components/loading.vue";
-import { useRouter } from "vue-router";
+import { defineComponent } from 'vue'
+import { Request } from '@/hooks/useRequest'
+import LoadingView from '@/components/loading.vue'
+import { HomeResult } from '@/interface/home'
 export default defineComponent({
-  name: "layout",
+  name: 'layout',
   components: {
     LoadingView,
   },
   setup() {
-    const router = useRouter()
-    let { loading: postsLoad, data: postsData, errMessage: postsErr } = Request<PostsGet>({
-      method: "get",
-      url: "/v1/posts",
-      params: {
-        page: 0,
-      },
-    });
-    const handleEdit = (id: string) => {
-      router.push(`/Detail/${id}`)
-    }
-    const handleDelete = (id: string) => {
-      Request({
-        method: 'post',
-        url: `/apis/posts/${id}`
-      })
-      // location.reload()
-    }
+    let {
+      loading: CardLoad,
+      data: CardData,
+      errMessage: CardErr,
+    } = Request<HomeResult>({
+      method: 'get',
+      url: '/v1/page-table',
+    })
+
     return {
-      postsData,
-      postsLoad,
-      postsErr,
-      handleEdit,
-      handleDelete
-    };
+      CardLoad,
+      CardData,
+      CardErr,
+      value: new Date(),
+    }
   },
-});
+})
 </script>
 
 <style scoped>
 .el-pagination {
   text-align: center;
   margin: 20px 0;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text {
+  font-size: 14px;
+}
+
+.item {
+  margin-bottom: 18px;
+}
+
+.box-card {
+  width: 480px;
 }
 </style>

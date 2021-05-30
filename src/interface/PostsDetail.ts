@@ -3,11 +3,16 @@ export interface GetPostsDetail {
 }
 
 export interface PostsDetail {
-	id: string;
+	id?: string;
 	title: string;
+	desc: string;
 	content: string;
 	categories: string[];
 	tags: string[];
 	createDate: string;
 	updateDate: string;
+}
+
+export interface PostsDefalut {
+	data: PostsDetail,
 }

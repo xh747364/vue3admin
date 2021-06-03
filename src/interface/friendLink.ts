@@ -1,8 +1,9 @@
-export interface FriendLink {
-  _id: string;
+export interface FriendLinkResult {
+  data: FriendLinkDetail
+}
+export interface FriendLinkDetail {
   title: string;
   link: string;
   createDate: string;
   updateDate: string;
-  __v?: number | string;
 }

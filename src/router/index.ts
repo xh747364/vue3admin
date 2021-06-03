@@ -6,13 +6,13 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Layout from '../layout/index.vue'
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/login',
-    name: 'login',
+    path: '/Login',
+    name: 'Login',
     component: () => import('../pages/login/login.vue'),
   },
   {
     path: '/',
-    redirect: '/Home',
+    redirect: '/Login',
     component: Layout,
     children: [
       {
@@ -20,95 +20,59 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Home',
         component: () => import('../pages/home/home.vue'),
       },
+      // 文章列表
       {
-        path: 'Detail/:id',
-        name: 'Detail',
-        component: () => import('../pages/articleDetail/articleDetail.vue')
+        path: 'Article',
+        name: 'Article',
+        component: () => import('../pages/article/list.vue')
       },
-    ]
-  },
-  {
-    path: '/Article',
-    name: 'Article',
-    redirect: '/Article/Home',
-    component: Layout,
-    children: [
+      // 文章详情
       {
-        path: 'Home',
-        name: 'ArticleHome',
-        component: () => import('../pages/article/article.vue')
-      },
-      {
-        path: 'Article/Detail/:id',
+        path: 'ArticleDetail/:id',
         name: 'ArticleDetail',
-        component: () => import('../pages/articleDetail/articleDetail.vue')
+        component: () => import('../pages/article/detail.vue')
       },
-    ]
-  },
-  {
-    path: '/Th',
-    name: 'Th',
-    redirect: '/Th/Home',
-    component: Layout,
-    children: [
+      // 分类列表
       {
-        path: 'Home',
-        name: 'ThHome',
-        component: () => import('../pages/th/th.vue')
+        path: 'Th',
+        name: 'Th',
+        component: () => import('../pages/th/list.vue')
       },
+      // 分类详情
       {
-        path: 'Detail/:id',
+        path: 'ThDetail/:id',
         name: 'ThDetail',
-        component: () => import('../pages/articleDetail/articleDetail.vue')
+        component: () => import('../pages/th/detail.vue')
       },
-    ]
-  },
-  {
-    path: '/Tags',
-    name: 'Tags',
-    redirect: '/Tags/Home',
-    component: Layout,
-    children: [
+      // 标签列表
       {
-        path: 'Home',
-        name: 'TagsHome',
-        component: () => import('../pages/tags/tags.vue')
+        path: 'Tags',
+        name: 'Tags',
+        component: () => import('../pages/tags/list.vue')
       },
+      // 标签详情
       {
-        path: 'Detail/:id',
+        path: 'TagsDetail/:id',
         name: 'TagsDetail',
-        component: () => import('../pages/articleDetail/articleDetail.vue')
+        component: () => import('../pages/tags/detail.vue')
       },
-    ]
-  },
-  {
-    path: '/FriendLink',
-    name: 'FriendLink',
-    redirect: '/FriendLink/Home',
-    component: Layout,
-    children: [
+      // 友链列表
       {
-        path: 'Home',
-        name: 'FriendLinkHome',
-        component: () => import('../pages/friendLink/friendLink.vue')
+        path: 'FriendLink',
+        name: 'FriendLink',
+        component: () => import('../pages/friendLink/list.vue')
       },
+      // 友链详情
       {
-        path: 'Detail/:id',
+        path: 'FriendLinkDetail/:id',
         name: 'FriendLinkDetail',
-        component: () => import('../pages/articleDetail/articleDetail.vue')
+        component: () => import('../pages/friendLink/detail.vue')
       },
-    ]
-  },
-  {
-    path: '/Delete',
-    name: 'Delete',
-    redirect: '/Delete/Home',
-    component: Layout,
-    children: [
+      // 回收站
       {
-        path: 'Home',
-        name: 'DeleteHome',
-        component: () => import('../pages/delete/delete.vue')
+        path: 'Delete',
+        name: 'Delete',
+        component: () => import('../pages/delete/list.vue')
       },
     ]
   },

@@ -28,31 +28,31 @@ export default defineComponent({
         title: '文章列表',
         icon: 'el-icon-document',
         name: '/Article',
-        path: '/Article/Home',
+        path: '/Article',
       },
       {
         title: '分类列表',
         icon: 'el-icon-edit-outline',
         name: '/Th',
-        path: '/Th/Home',
+        path: '/Th',
       },
       {
         title: '标签列表',
         icon: 'el-icon-price-tag',
         name: '/Tags',
-        path: '/Tags/Home',
+        path: '/Tags',
       },
       {
         title: '友链列表',
         icon: 'el-icon-paperclip',
         name: '/FriendLink',
-        path: '/FriendLink/Home',
+        path: '/FriendLink',
       },
       {
         title: '回收站',
         icon: 'el-icon-delete',
         name: '/Delete',
-        path: '/Delete/Home',
+        path: '/Delete',
       },
     ])
     const routeActive = ref('')

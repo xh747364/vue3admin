@@ -1,6 +1,13 @@
 <template>
   <transition-group>
     <LoadingView :loading="loading">
+      <el-row class="main-header"
+              justify="start">
+        <el-col :span="4">
+          <el-button type="primary"
+                     @click="addTags">新增</el-button>
+        </el-col>
+      </el-row>
       <el-table :data="data">
         <el-table-column prop="title"
                          label="标题"
@@ -19,7 +26,7 @@
             <el-button type="danger"
                        size="small"
                        icon="el-icon-delete"
-                       @click="handleDelete(scope.row._id)">删除</el-button>
+                       @click="handleDelete(scope.row._id, scope.$index)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -32,6 +39,8 @@ import { Request } from '@/hooks/useRequest'
 import { PostsGet } from '@/interface/Request'
 import LoadingView from '@/components/loading.vue'
 import { useRouter } from 'vue-router'
+import { useAsyncRequest } from '@/hooks/useAsyncReq'
+import { ElNotification } from 'element-plus'
 export default defineComponent({
   name: 'layout',
   components: {
@@ -41,17 +50,26 @@ export default defineComponent({
     const router = useRouter()
     let { loading, data, errMessage } = Request<PostsGet>({
       method: 'get',
-      url: '/v1/categories',
+      url: '/v1/tags',
     })
     const handleEdit = (id: string) => {
-      router.push(`/Detail/${id}`)
+      router.push(`/TagsDetail/${id}`)
     }
-    const handleDelete = (id: string) => {
-      Request({
-        method: 'post',
-        url: `/apis/posts/${id}`,
+    const handleDelete = (id: string, index: number) => {
+      useAsyncRequest({
+        method: 'delete',
+        url: `/apis/tags/${id}`,
+      }).then(res => {
+        ElNotification({
+          type: 'success',
+          title: res.data.code,
+          message: res.data.message,
+        })
+        data.value.splice(index, 1)
       })
-      // location.reload()
+    }
+    const addTags = () => {
+      router.push('/TagsDetail/0')
     }
     return {
       data,
@@ -59,6 +77,7 @@ export default defineComponent({
       errMessage,
       handleEdit,
       handleDelete,
+      addTags,
     }
   },
 })

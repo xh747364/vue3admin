@@ -3,13 +3,6 @@
     <LoadingView :loading="postsLoad">
       <el-row class="main-header"
               justify="start">
-        <!-- <el-col :span="10">
-          <div>
-            查询:
-          </div>
-          <el-input v-model="search"
-                    placeholder="请输入内容"></el-input>
-        </el-col> -->
         <el-col :span="4">
           <el-button type="primary"
                      @click="addArticle">新增</el-button>
@@ -57,7 +50,7 @@ import { PostsGet } from '@/interface/Request'
 import LoadingView from '@/components/loading.vue'
 import { useRouter } from 'vue-router'
 import { useAsyncRequest } from '@/hooks/useAsyncReq'
-import { ElMessage } from 'element-plus'
+import { ElNotification } from 'element-plus'
 export default defineComponent({
   name: 'layout',
   components: {
@@ -79,7 +72,7 @@ export default defineComponent({
     })
     let loading = ref(false)
     const handleEdit = (id: string) => {
-      router.push(`/Detail/${id}`)
+      router.push(`/ArticleDetail/${id}`)
     }
     const handleDelete = (id: string) => {
       loading.value = true
@@ -88,7 +81,7 @@ export default defineComponent({
         url: `/apis/posts/${id}`,
       }).then((res) => {
         loading.value = false
-        ElMessage.success({
+        ElNotification({
           message: '删除成功',
           type: 'success',
         })
@@ -99,7 +92,7 @@ export default defineComponent({
       })
     }
     const addArticle = () => {
-      router.push('/Detail/0')
+      router.push('/ArticleDetail/0')
     }
     const handleCurrentChange = (val: number) => {
       useAsyncRequest({

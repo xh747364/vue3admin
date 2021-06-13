@@ -27,6 +27,10 @@
           <template #default="scope">
             <el-button type="primary"
                        size="small"
+                       icon="el-icon-view"
+                       @click="handleComment(scope.row._id)">查看评论</el-button>
+            <el-button type="primary"
+                       size="small"
                        icon="el-icon-edit-outline"
                        @click="handleEdit(scope.row._id)">编辑</el-button>
             <el-button type="danger"
@@ -42,12 +46,14 @@
                      @current-change="handleCurrentChange"></el-pagination>
     </LoadingView>
   </transition-group>
+  <CommentList :dialogVisible='dialogVisible' :pid="pid" @close="dialogVisible = false" />
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { Request } from '@/hooks/useRequest'
 import { PostsGet } from '@/interface/Request'
 import LoadingView from '@/components/loading.vue'
+import CommentList from './components/commentList.vue'
 import { useRouter } from 'vue-router'
 import { useAsyncRequest } from '@/hooks/useAsyncReq'
 import { ElNotification } from 'element-plus'
@@ -55,6 +61,7 @@ export default defineComponent({
   name: 'layout',
   components: {
     LoadingView,
+    CommentList,
   },
   setup() {
     const router = useRouter()
@@ -78,8 +85,8 @@ export default defineComponent({
       loading.value = true
       useAsyncRequest({
         method: 'post',
-        url: `/apis/posts/${id}`,
-      }).then((res) => {
+        url: `/v1/posts/${id}`,
+      }).then(() => {
         loading.value = false
         ElNotification({
           message: '删除成功',
@@ -88,7 +95,6 @@ export default defineComponent({
         setTimeout(() => {
           location.reload()
         }, 500)
-        // location.reload()
       })
     }
     const addArticle = () => {
@@ -106,6 +112,12 @@ export default defineComponent({
         postsData.value.data = res.data.data
       })
     }
+    let dialogVisible = ref(false);
+    let pid = ref('')
+    const handleComment = (id: string) => {
+      pid.value = id;
+      dialogVisible.value = true;
+    }
     return {
       postsData,
       postsLoad,
@@ -116,6 +128,9 @@ export default defineComponent({
       loading,
       search: '',
       handleCurrentChange,
+      handleComment,
+      dialogVisible,
+      pid,
     }
   },
 })

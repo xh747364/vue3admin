@@ -147,7 +147,7 @@ export default defineComponent({
       if (edit.value) {
         useAsyncRequest({
           method: "put",
-          url: `/apis/posts/${id}`,
+          url: `/v1/posts/${id}`,
           data: params,
         }).then((res) => {
           ElMessage.success({
@@ -161,7 +161,7 @@ export default defineComponent({
       } else {
         useAsyncRequest({
           method: "post",
-          url: `/apis/posts`,
+          url: `/v1/posts`,
           data: params,
         }).then((res) => {
           ElMessage.success({

@@ -58,7 +58,7 @@ export default defineComponent({
     const handleDelete = (id: string, index: number) => {
       useAsyncRequest({
         method: 'delete',
-        url: `/apis/tags/${id}`,
+        url: `/v1/tags/${id}`,
       }).then(res => {
         ElNotification({
           type: 'success',

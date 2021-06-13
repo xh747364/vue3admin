@@ -61,14 +61,14 @@ export default defineComponent({
     const handleDelete = (id: string, index: number) => {
       useAsyncRequest({
         method: 'delete',
-        url: `/apis/page-table/${id}`,
+        url: `/v1/page-table/${id}`,
       }).then(res => {
         ElNotification({
           type: 'success',
           title: res.data.code,
           message: res.data.message,
         })
-        data.value.splice(index, 1)
+        data.value.data.friendLink.splice(index, 1)
       })
     }
     const addLink = () => {

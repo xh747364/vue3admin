@@ -15,7 +15,9 @@ import '@kangc/v-md-editor/lib/theme/style/vuepress.css';
 import 'prismjs/components/prism-json';
 import 'prismjs/components/prism-bash';
 import hljs from 'highlight.js';
-
+import VMdPreview from '@kangc/v-md-editor/lib/preview';
+import '@kangc/v-md-editor/lib/style/preview.css';
+VMdPreview.use(vuepressTheme);
 VMdEditor.use(vuepressTheme, {
 	Hljs: hljs
 });
@@ -27,4 +29,5 @@ app.use(router);
 app.use(ElementPlus);
 app.use(axiosPlugin);
 app.use(VMdEditor);
+app.use(VMdPreview)
 app.mount('#app');

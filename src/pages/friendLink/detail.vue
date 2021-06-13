@@ -72,7 +72,7 @@ export default defineComponent({
       if (edit.value) {
         useAsyncRequest({
           method: "put",
-          url: `/apis/page-table/${id}`,
+          url: `/v1/page-table/${id}`,
           data: params,
         }).then((res) => {
           if(res.data.code == 1000){
@@ -95,7 +95,7 @@ export default defineComponent({
       } else {
         useAsyncRequest({
           method: "post",
-          url: `/apis/page-table`,
+          url: `/v1/page-table`,
           data: params,
         }).then((res) => {
           ElMessage.success({

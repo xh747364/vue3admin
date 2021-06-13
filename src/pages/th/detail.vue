@@ -68,7 +68,7 @@ export default defineComponent({
       if (edit.value) {
         useAsyncRequest({
           method: "put",
-          url: `/apis/categories/${id}`,
+          url: `/v1/categories/${id}`,
           data: params,
         }).then((res) => {
           if(res.data.code == 1000){
@@ -91,7 +91,7 @@ export default defineComponent({
       } else {
         useAsyncRequest({
           method: "post",
-          url: `/apis/categories`,
+          url: `/v1/categories`,
           data: params,
         }).then((res) => {
           ElMessage.success({

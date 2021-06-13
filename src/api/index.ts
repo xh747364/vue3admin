@@ -5,7 +5,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 export const GetPosts = (): Promise<Service.PostsList> => {
     return new Promise((resolve, reject)=>{
         http.request({
-            url: '/apis/posts',
+            url: '/v1/posts',
             method: 'get'
         })
         .then((res: AxiosResponse) => {

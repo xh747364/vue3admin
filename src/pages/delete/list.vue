@@ -63,7 +63,7 @@ export default defineComponent({
     const handleEdit = (id: string) => {
       useAsyncRequest({
         method: 'post',
-        url: `/apis/posts/recovery/${id}`,
+        url: `/v1/posts/recovery/${id}`,
       }).then((res) => {
         location.reload()
       })
@@ -71,7 +71,7 @@ export default defineComponent({
     const handleDelete = (id: string) => {
       useAsyncRequest({
         method: 'delete',
-        url: `/apis/posts/${id}`,
+        url: `/v1/posts/${id}`,
       }).then((res) => {
         location.reload()
       })
